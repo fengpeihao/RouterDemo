@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_feature1"
+    app:startDestination="@id/feature1NavigatorFragment">
+    <fragment
+        android:id="@+id/feature1NavigatorFragment"
+        android:name="com.cfxc.module_one.Feature1NavigatorFragment" />
+    <fragment
+        android:id="@+id/ddaFragment"
+        android:name="com.cfxc.module_one.DDAFragment" />
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.cfxc.module_one.TransactionFragment" />
+</navigation>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_feature2"
+    app:startDestination="@id/feature2NavigatorFragment">
+    <fragment
+        android:id="@+id/feature2NavigatorFragment"
+        android:name="com.cfxc.module_two.Feature2NavigatorFragment" />
+    <fragment
+        android:id="@+id/sccFragment"
+        android:name="com.cfxc.module_two.SCCFragment" />
+</navigation>

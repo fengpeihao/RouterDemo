@@ -1,0 +1,12 @@
+[
+  {
+    "moduleName": "feature1",
+    "status": "visible",
+    "navGraphIdStr": "nav_graph_feature1"
+  },
+  {
+    "moduleName": "feature2",
+    "status": "invisible",
+    "navGraphIdStr": "nav_graph_feature2"
+  }
+]

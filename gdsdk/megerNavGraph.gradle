@@ -1,0 +1,82 @@
+import groovy.xml.*
+import groovy.json.JsonSlurper
+
+task meger() {
+    clean.delete(buildDir)
+//project.beforeEvaluate {
+    // projectDir: /Users/peihao.feng/AndroidStudioProjects/Router/gdsdk
+    // rootDir: /Users/peihao.feng/AndroidStudioProjects/Router
+    def configJson = "${rootDir}/moduleconfig.json"
+    def jsonSlurper = new JsonSlurper()
+    def jsonObj = jsonSlurper.parse(new File(configJson))
+
+    def navGraphPath = "${projectDir}/src/main/res/navigation/nav_graph.xml"
+//    def pathResult = openXmlText(new File(navGraphPath))
+//    pathResult.declareNamespace("android": "http://schemas.android.com/apk/res/android")
+//    pathResult.declareNamespace("app": "http://schemas.android.com/apk/res-auto")
+
+    def rootNode = new XmlParser().parse(new File(navGraphPath))
+//    rootNode.appendNode('include', ["app:graph": '@navigation/nav_graph_module_one'])
+//    pathResult.include[0].@"app:graph"
+    rootNode.include.each { _node ->
+//        def includeGraphId = _node.attributes().toString()
+//        alreadyIncludeList.add(includeGraphId)
+//        def isInJson = false
+//        jsonObj.each { obj ->
+//            if (includeGraphId.endsWith("${obj.navGraphIdStr}]")) {
+//                isInJson = true
+//                if (obj.status == "invisible") {
+//                    rootNode.remove(_node)
+//                }
+//            }
+//        }
+//
+//        if (!isInJson) rootNode.remove(_node)
+        rootNode.remove(_node)
+    }
+    jsonObj.each { obj ->
+        if (obj.status == "visible") {
+            rootNode.appendNode('include', ["app:graph": "@navigation/${obj.navGraphIdStr}"])
+        }
+    }
+
+//    pathResult.include.each {_node->
+//        def graphValue = _node.@"app:graph" as String
+//        def navGraphIdStr = graphValue.substring(12)
+//        moduleList.add(navGraphIdStr)
+//        jsonObj.each {obj->
+//            if (navGraphIdStr == obj.navGraphIdStr && obj.status == "invisible") {
+//                println(navGraphIdStr)
+//                deleteNode.add(_node)
+//            }
+//        }
+//        rootNode.remove(_node)
+//    }
+//    println(moduleList)
+
+    def writer = new PrintWriter(navGraphPath, "UTF-8")
+    writer.write(XmlUtil.serialize(rootNode))
+    writer.close()
+
+    def gdSdkBuildGradle = "${projectDir}/build.gradle"
+    def gdSdkBuildFile = new File(gdSdkBuildGradle)
+    def gdSdkBuildFileText = gdSdkBuildFile.text
+    jsonObj.each { obj ->
+        def moduleBuildGradle = "${projectDir}/${obj.moduleName}/build.gradle"
+        def file = new File(moduleBuildGradle)
+        def fileText = file.text
+        if (obj.status == "visible") {
+            fileText = fileText.replace("isModule = false", "isModule = true")
+            gdSdkBuildFileText = gdSdkBuildFileText.replace("//implementation project(':gdsdk:${obj.moduleName}')","implementation project(':gdsdk:${obj.moduleName}')")
+        } else {
+            fileText = fileText.replace("isModule = true", "isModule = false")
+            gdSdkBuildFileText = gdSdkBuildFileText.replace("implementation project(':gdsdk:${obj.moduleName}')","//implementation project(':gdsdk:${obj.moduleName}')")
+        }
+        file.withWriter('utf-8') {
+            it.write(fileText)
+        }
+    }
+    gdSdkBuildFile.withWriter('utf-8') {
+        it.write(gdSdkBuildFileText)
+    }
+}

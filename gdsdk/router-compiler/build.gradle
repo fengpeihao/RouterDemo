@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+    bintrayName = 'router-compiler'
+    artifact = bintrayName
+    libraryName = 'Router compiler'
+    libraryDescription = 'A compiler for Router to find route'
+    libraryVersion = router_version
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.0-rc7'
+
+    implementation project(':gdsdk:router-annotation')
+
+    implementation 'com.squareup:javapoet:1.13.0'
+}
+
+//apply from: '../install.gradle'
+//apply from: '../bintray.gradle'

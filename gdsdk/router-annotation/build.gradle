@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+    bintrayName = 'router-annotation'
+    artifact = bintrayName
+    libraryName = 'Router annotation'
+    libraryDescription = 'The annotation used in arouter core'
+    libraryVersion = router_version
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+//apply from: '../install.gradle'
+//apply from: '../bintray.gradle'

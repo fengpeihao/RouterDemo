@@ -1,0 +1,9 @@
+include ':gdsdk:router-annotation'
+include ':gdsdk:common'
+include ':gdsdk:feature1'
+include ':gdsdk:feature2'
+include ':gdsdk:router-core'
+include ':gdsdk:router-compiler'
+include ':gdsdk'
+rootProject.name = "Router"
+include ':app'
