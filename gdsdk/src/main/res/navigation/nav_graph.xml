@@ -13,5 +13,7 @@
   <fragment android:id="@+id/prerequisiteFragment" android:name="com.cfxc.router.PrerequisiteFragment"/>
     
   <include app:graph="@navigation/nav_graph_feature1"/>
+    
+  <include app:graph="@navigation/nav_graph_feature2"/>
   
 </navigation>

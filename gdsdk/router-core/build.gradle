@@ -1,16 +1,7 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
-
-ext {
-    bintrayName = 'router-core'
-    artifact = bintrayName
-    libraryName = 'Router sdk'
-    libraryDescription = 'A router for Android Jetpack Navigation'
-    libraryVersion = router_version
-}
 
 android {
     compileSdkVersion Integer.parseInt(COMPILE_SDK_VERSION)
@@ -34,17 +25,14 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
 
-    api 'androidx.fragment:fragment-ktx:1.3.2'
+    api 'androidx.fragment:fragment-ktx:1.5.5'
 
     api project(':gdsdk:router-annotation')
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.4"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.4"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 }
-
-//apply from: '../install.gradle'
-//apply from: '../bintray.gradle'

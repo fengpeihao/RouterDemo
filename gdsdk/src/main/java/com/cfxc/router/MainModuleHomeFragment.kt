@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cfxc.common.constants.RouteConstant
 import com.cfxc.router.annotation.Route
 import com.cfxc.router.constant.TestConstant
 import com.cfxc.router.core.template.Router
-import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * @description
@@ -30,23 +30,23 @@ class MainModuleHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_go_to_need_login.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_go_to_need_login).setOnClickListener {
             Router.getInstance().build(RouteConstant.MAIN_MODULE_FIRST_FRAGMENT)
                 .navigation(findNavController())
         }
-        btn_go_to_need_prerequisite.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_go_to_need_prerequisite).setOnClickListener {
             Router.getInstance().build(RouteConstant.MAIN_MODULE_SECOND_FRAGMENT)
                 .navigation(findNavController())
         }
-        btn_go_to_need_both.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_go_to_need_both).setOnClickListener {
             Router.getInstance().build(RouteConstant.MAIN_MODULE_THIRD_FRAGMENT)
                 .navigation(findNavController())
         }
-        btn_go_to_module_first.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_go_to_module_first).setOnClickListener {
             Router.getInstance().build(RouteConstant.DDA_FRAGMENT)
                 .navigation(findNavController())
         }
-        btn_reset_state.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_reset_state).setOnClickListener {
             TestConstant.isNeedPrerequisite = true
             TestConstant.isNeedLogin = true
         }

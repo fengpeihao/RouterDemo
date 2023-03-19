@@ -6,7 +6,7 @@
   },
   {
     "moduleName": "feature2",
-    "status": "invisible",
+    "status": "visible",
     "navGraphIdStr": "nav_graph_feature2"
   }
 ]

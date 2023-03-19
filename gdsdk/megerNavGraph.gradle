@@ -2,8 +2,8 @@ import groovy.xml.*
 import groovy.json.JsonSlurper
 
 task meger() {
+    println("start meger task")
     clean.delete(buildDir)
-//project.beforeEvaluate {
     // projectDir: /Users/peihao.feng/AndroidStudioProjects/Router/gdsdk
     // rootDir: /Users/peihao.feng/AndroidStudioProjects/Router
     def configJson = "${rootDir}/moduleconfig.json"
@@ -65,12 +65,18 @@ task meger() {
         def moduleBuildGradle = "${projectDir}/${obj.moduleName}/build.gradle"
         def file = new File(moduleBuildGradle)
         def fileText = file.text
+        boolean isContains = gdSdkBuildFileText.contains("implementation project(':gdsdk:${obj.moduleName}')")
         if (obj.status == "visible") {
             fileText = fileText.replace("isModule = false", "isModule = true")
-            gdSdkBuildFileText = gdSdkBuildFileText.replace("//implementation project(':gdsdk:${obj.moduleName}')","implementation project(':gdsdk:${obj.moduleName}')")
+            if (isContains) {
+                gdSdkBuildFileText = gdSdkBuildFileText.replace("//implementation project(':gdsdk:${obj.moduleName}')", "implementation project(':gdsdk:${obj.moduleName}')")
+            }
         } else {
             fileText = fileText.replace("isModule = true", "isModule = false")
-            gdSdkBuildFileText = gdSdkBuildFileText.replace("implementation project(':gdsdk:${obj.moduleName}')","//implementation project(':gdsdk:${obj.moduleName}')")
+            if (isContains) {
+                if (!gdSdkBuildFileText.contains("//implementation project(':gdsdk:${obj.moduleName}')"))
+                    gdSdkBuildFileText = gdSdkBuildFileText.replace("implementation project(':gdsdk:${obj.moduleName}')", "//implementation project(':gdsdk:${obj.moduleName}')")
+            }
         }
         file.withWriter('utf-8') {
             it.write(fileText)

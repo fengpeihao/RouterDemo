@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cfxc.common.constants.RouteConstant
 import com.cfxc.router.annotation.Route
 import com.cfxc.router.core.template.Router
-import kotlinx.android.synthetic.main.fragment_main_module_first.*
 
 /**
  * @description
@@ -30,10 +31,10 @@ class MainModuleFirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            tv_received.text = it.toString()
+            view.findViewById<TextView>(R.id.tv_received).text = it.toString()
         }
 
-        btn_goto_main_second.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_goto_main_second).setOnClickListener {
             Router.getInstance().build(RouteConstant.MAIN_MODULE_SECOND_FRAGMENT)
                 .navigation(findNavController())
         }

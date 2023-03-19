@@ -23,7 +23,7 @@ object Utils {
         }
     }
 
-    inline fun BaseBean.entityToMap(entity: Any): HashMap<String, Any?> {
+    fun BaseBean.entityToMap(entity: Any): HashMap<String, Any?> {
         val hashMap = HashMap<String, Any?>()
         val declaredFields = entity.javaClass.declaredFields
         for (field in declaredFields) {

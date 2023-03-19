@@ -3,10 +3,10 @@ package com.cfxc.router
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.cfxc.router.dispatcher.DispatcherController
-import kotlinx.android.synthetic.main.activity_home.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -17,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val host = fragment_nav_host as NavHostFragment
+        val host = findViewById<FragmentContainerView>(R.id.fragment_nav_host).getFragment<NavHostFragment>()
         navController = host.navController
 
         DispatcherController.dispatch(navController, intent)

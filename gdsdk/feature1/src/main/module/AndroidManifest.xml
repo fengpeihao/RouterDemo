@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Router">
 
-        <activity android:name="com.cfxc.module_one.MainActivity">
+        <activity
+            android:exported="true"
+            android:name="com.cfxc.module_one.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

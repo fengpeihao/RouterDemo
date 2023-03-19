@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -15,7 +17,6 @@ import com.cfxc.common.constants.RouteConstant
 import com.example.module_one.R
 import com.cfxc.router.annotation.Route
 import com.cfxc.router.core.template.Router
-import kotlinx.android.synthetic.main.fragment_module_one_first.*
 
 /**
  * @description
@@ -35,7 +36,7 @@ class DDAFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_goto_next.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_goto_next).setOnClickListener {
             Router.getInstance().build(RouteConstant.SCC_FRAGMENT)
                 .with(bundleOf(BundleKeyConstant.KEY_CONTENT to "feature1 dda says 'Hello'"))
                 .navigation(findNavController())
@@ -43,21 +44,22 @@ class DDAFragment : Fragment() {
 
         parentFragmentManager.setFragmentResultListener(
             RequestKeyConstant.KEY_FIRST_CONTACT_SECOND,
-            viewLifecycleOwner,
-            { requestKey, result ->
-                if (requestKey == RequestKeyConstant.KEY_FIRST_CONTACT_SECOND) {
-                    tv_received.text = result.getString(BundleKeyConstant.KEY_CONTENT)
-                }
-            })
+            viewLifecycleOwner
+        ) { requestKey, result ->
+            if (requestKey == RequestKeyConstant.KEY_FIRST_CONTACT_SECOND) {
+                view.findViewById<TextView>(R.id.tv_received).text =
+                    result.getString(BundleKeyConstant.KEY_CONTENT)
+            }
+        }
 
-        btn_get_app_module_data.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_get_app_module_data).setOnClickListener {
             val userDataProvider = Router.getInstance().build(RouteConstant.USER_DATA_PROVIDER)
                 .navigation() as IUserDataProvider
             Toast.makeText(requireContext(), userDataProvider.getUserName(), Toast.LENGTH_SHORT)
                 .show()
         }
 
-        btn_goto_second.setOnClickListener {
+        view.findViewById<Button>(R.id.btn_goto_second).setOnClickListener {
             Router.getInstance().build(RouteConstant.TRANSACTION_FRAGMENT)
                 .navigation(findNavController())
         }
